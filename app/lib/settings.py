@@ -206,10 +206,21 @@ class EmailSettings(BaseSettings):
     SENDER: str
 
 
+class AuthSettings(BaseSettings):
+    class Config:
+        env_prefix = "AUTH_"
+        case_sensitive = True
+
+    BACKEND: str
+    VERIFY_EMAIL_SUBJECT: str
+
+
+
 # `.parse_obj()` thing is a workaround for pyright and pydantic interplay, see:
 # https://github.com/pydantic/pydantic/issues/3753#issuecomment-1087417884
 api = APISettings.parse_obj({})
 app = AppSettings.parse_obj({})
+auth = AuthSettings.parse_obj({})
 db = DatabaseSettings.parse_obj({})
 email = EmailSettings.parse_obj({})
 openapi = OpenAPISettings.parse_obj({})
